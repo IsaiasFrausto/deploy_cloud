@@ -1,0 +1,7 @@
+resources:
+  - deploy-suma.yaml
+  - deploy-resta.yaml
+  - deploy-ecuacion.yaml
+  - deploy-almacenar.yaml
+  - deploy-mysql.yaml
+  #- mysql-initdb-configmap.yaml

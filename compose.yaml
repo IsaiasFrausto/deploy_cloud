@@ -1,0 +1,78 @@
+version: "3.9"
+
+services:
+  suma:
+    build: ./suma
+    ports:
+      - "8001:8000"
+    networks:
+      - shape-net
+
+  resta:
+    build: ./resta
+    ports:
+      - "8002:8000"
+    networks:
+      - shape-net
+
+  ecuacion:
+    build: ./ecuacion
+    ports:
+      - "8003:8000"
+    networks:
+      - shape-net
+    depends_on:
+      - suma
+      - resta
+      - almacenar  # Dependencia explícita
+
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+    # Aquí estamos definiendo usuario y password para mysql para el caso de esta aplicacion
+    # (esto puede ser diferente al usuario y pass que ustedes definieron en mysql)
+    # para ver lo que se almacena en mysql, crea una nueva conexion con estos datos de usuario y pass
+      MYSQL_ROOT_PASSWORD: rootpassword123
+      MYSQL_HOST: "mysql"
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword123
+      MYSQL_DATABASE: resultados_db
+
+    ports:
+      - "3307:3306"
+    networks:
+      - shape-net
+  
+    volumes:
+      # init.sql se utiliza para inicializar mysql cuando el contenedor de la base de datos 
+      # se levanta por primera vez. init.sql conteniene instrucciones para ejecutar comandos
+      # SQL       
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql 
+
+      # mysql_data es el nombre del volumen persistente
+      # Ubicación	Ruta	                        Descripción
+      # Contenedor	/var/lib/mysql	                Donde MySQL guarda sus datos
+      # Host (interno)	/var/lib/docker/volumes/...	Donde Docker realmente guarda esos datos
+      # Docker Compose	- mysql_data:/var/lib/mysql	Le dice a Docker: "conecta ese volumen aquí"
+
+      - mysql_data:/var/lib/mysql  
+
+  almacenar:
+    build: ./almacenar
+    ports:
+      - "8004:8000"
+    networks:
+      - shape-net
+    depends_on:
+      - mysql
+
+networks:
+  shape-net:
+    driver: bridge
+
+# Sección de volúmenes (¡CRÍTICO PARA PERSISTENCIA!)
+volumes:
+  mysql_data:  

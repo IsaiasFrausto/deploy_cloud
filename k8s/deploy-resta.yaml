@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resta
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: resta
+  template:
+    metadata:
+      labels:
+        app: resta
+    spec:
+      containers:
+        - name: resta
+          image: sayid187/resta:latest
+          ports:
+            - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: resta
+spec:
+  selector:
+    app: resta
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  type: ClusterIP
