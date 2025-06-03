@@ -37,9 +37,9 @@ def resolver(valores: Input):
     print("Entra a resolver")
     try:
         # Realizar las peticiones a los servicios externos para suma y resta
-        suma_resp = requests.post("https://deploycloud-production.up.railway.app/", json={"a": valores.a, "b": valores.b}, timeout=5)
+        suma_resp = requests.post("https://deploycloud-production.up.railway.app/sumar", json={"a": valores.a, "b": valores.b}, timeout=5)
         suma_resp.raise_for_status()
-        resta_resp = requests.post("https://extraordinary-adaptation-production.up.railway.app/", json={"c": valores.c, "d": valores.d}, timeout=5)
+        resta_resp = requests.post("https://extraordinary-adaptation-production.up.railway.app/restar", json={"c": valores.c, "d": valores.d}, timeout=5)
         resta_resp.raise_for_status()
     except requests.RequestException as e:
         raise HTTPException(status_code=502, detail=f"Error al comunicarse con suma/resta: {e}")
