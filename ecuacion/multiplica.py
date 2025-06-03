@@ -24,10 +24,10 @@ class Input(BaseModel):
 def get_db_connection():
  
    return mysql.connector.connect(
-        host=os.getenv("MYSQL_HOST", "mysql"),
-        user=os.getenv("MYSQL_USER", "myuser"),
-        password=os.getenv("MYSQL_PASSWORD", "mypassword123"),
-        database=os.getenv("MYSQL_DATABASE", "resultados_db")
+        host=os.getenv("MYSQLHOST", "mysql.railway.internal"),
+        user=os.getenv("MYSQLUSER", "root"),
+        password=os.getenv("MYSQLPASSWORD", "OspIzOrOktOwkIRvstyvUxKgxYAtPbBj"),
+        database=os.getenv("MYSQL_DATABASE", "railway")
     )
 
 
@@ -58,10 +58,10 @@ def resolver(valores: Input):
     try:
         db = get_db_connection()
 
-        host=os.getenv("MYSQL_HOST", "mysql"),
-        user=os.getenv("MYSQL_USER", "myuser"),
-        password=os.getenv("MYSQL_PASSWORD", "mypassword123"),
-        database=os.getenv("MYSQL_DATABASE", "resultados_db")
+        host=os.getenv("MYSQLHOST", "mysql.railway.internal"),
+        user=os.getenv("MYSQLUSER", "root"),
+        password=os.getenv("MYSQLPASSWORD", "OspIzOrOktOwkIRvstyvUxKgxYAtPbBj"),
+        database=os.getenv("MYSQL_DATABASE", "railway")
 
         print("HOST:", host)
         print("USER:", user)

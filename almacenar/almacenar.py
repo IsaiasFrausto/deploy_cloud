@@ -14,18 +14,18 @@ class ResultadoRequest(BaseModel):
 
 @app.post("/guardar")
 def guardar(datos: ResultadoRequest):
-    # Conexión a MySQL
+    # Conexión a MySQL en este caso para Railway
     conexion = mysql.connector.connect(
-        host=os.getenv("MYSQL_HOST", "mysql"),
-        user=os.getenv("MYSQL_USER", "myuser"),
-        password=os.getenv("MYSQL_PASSWORD", "mypassword123"),
-        database=os.getenv("MYSQL_DATABASE", "resultados_db")
+        host=os.getenv("MYSQLHOST", "mysql.railway.internal"),
+        user=os.getenv("MYSQLUSER", "root"),
+        password=os.getenv("MYSQLPASSWORD", "OspIzOrOktOwkIRvstyvUxKgxYAtPbBj"),
+        database=os.getenv("MYSQL_DATABASE", "railway")
     )
 
     print("-- En Almacenar --")
-    print("HOST:", os.getenv("MYSQL_HOST"))
-    print("USER:", os.getenv("MYSQL_USER"))
-    print("PWD :", os.getenv("MYSQL_PASSWORD"))
+    print("HOST:", os.getenv("MYSQLHOST"))
+    print("USER:", os.getenv("MYSQLUSER"))
+    print("PWD :", os.getenv("MYSQLPASSWORD"))
     print("DB  :", os.getenv("MYSQL_DATABASE"))
 
     cursor = conexion.cursor()
