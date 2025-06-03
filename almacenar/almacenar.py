@@ -18,7 +18,7 @@ def guardar(datos: ResultadoRequest):
     conexion = mysql.connector.connect(
         host=os.getenv("MYSQLHOST", "mysql.railway.internal"),
         user=os.getenv("MYSQLUSER", "root"),
-        password=os.getenv("MYSQLPASSWORD", "OspIzOrOktOwkIRvstyvUxKgxYAtPbBj"),
+        password=os.getenv("MYSQLPASSWORD", "lIGfjGhLdKMZvnVAkiAtTWKAsbAOmQrZ"),
         database=os.getenv("MYSQL_DATABASE", "railway")
     )
 
